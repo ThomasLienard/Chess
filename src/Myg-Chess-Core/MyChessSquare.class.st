@@ -204,12 +204,12 @@ MyChessSquare >> renderBishop: aPiece [
 	^ aPiece isWhite
 		  ifTrue: [
 			  color isBlack
-				  ifFalse: [ 'B' ]
-				  ifTrue: [ 'b' ] ]
+				  ifFalse: [ 'B' ]  "white piece, white square"
+				  ifTrue: [ 'b' ] ] "white piece, black square"
 		  ifFalse: [
 			  color isBlack
-				  ifFalse: [ 'V' ]
-				  ifTrue: [ 'v' ] ]
+				  ifFalse: [ 'V' ]  "black piece, white square"
+				  ifTrue: [ 'v' ] ] "black piece, black square"
 ]
 
 { #category : 'rendering' }
