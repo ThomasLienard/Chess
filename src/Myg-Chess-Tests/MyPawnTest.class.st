@@ -27,7 +27,6 @@ MyPawnTest >> setUp [
 { #category : 'tests' }
 MyPawnTest >> testBlackPawnBlocked [ 
     | squares |
-    board := MyChessBoard empty.
     board at: 'e7' put: (blackPawn := MyPawn black).
     board at: 'e6' put: (MyPawn white). "Pion blanc bloque la case e6"
 
@@ -39,7 +38,6 @@ MyPawnTest >> testBlackPawnBlocked [
 { #category : 'tests' }
 MyPawnTest >> testBlackPawnMoves [ 
     | squares |
-    board := MyChessBoard empty.
     board at: 'e7' put: (blackPawn := MyPawn black).
 
     "Le pion noir devrait pouvoir reculer d'une case"
@@ -64,7 +62,6 @@ MyPawnTest >> testPawnCannotMoveBackwards [
 { #category : 'tests' }
 MyPawnTest >> testWhitePawnBlocked [ 
     | squares |
-    board := MyChessBoard empty.
     board at: 'e2' put: (whitePawn := MyPawn white).
     board at: 'e3' put: (MyPawn black). "Pion noir bloque la case e3"
 
@@ -76,7 +73,6 @@ MyPawnTest >> testWhitePawnBlocked [
 { #category : 'tests' }
 MyPawnTest >> testWhitePawnMoves [ 
     | squares |
-    board := MyChessBoard empty.
     board at: 'e2' put: (whitePawn := MyPawn white).
 
     "Le pion blanc devrait pouvoir avancer d'une case"
