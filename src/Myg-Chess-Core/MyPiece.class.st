@@ -25,7 +25,7 @@ MyPiece class >> white [
 		  yourself
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'method' }
 MyPiece >> attackingSquares [
 
 	^ self legalTargetSquares
