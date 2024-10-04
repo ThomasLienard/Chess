@@ -13,6 +13,7 @@ MyLogicTest >> testCheckmateDetection [
     game := MyChessGame fromFENString: 'rnbqkbnr/pppppppp/8/8/4Q3/8/PPPPPPPP/RNB1KBNR b KQkq - 0 1'.  
 
     "Vérifier que le joueur noir est en échec et mat"
+	 "Halt est un sous classe de Exception on peut donc catch comme une erreur"
     self should: [ game checkForMate ] raise: Error.
 
 ]
@@ -31,9 +32,9 @@ MyLogicTest >> testGameInitialization [
     self assert: pieces size equals: 32.
     
     "Vérifier que les rois sont à leurs positions initiales"
-	 "Comment vérifier la position ?"
-    "self assert: (pieces anySatisfy: [:p | (p id = 'k' or: p id = 'L') and: [p position = 'e1']]).
-    self assert: (pieces anySatisfy: [:p | (p id = 'k' or: p id = 'L') and: [p position = 'e8']])."
+	 "Comment vérifier la position ? -> board at:'e1'"
+    "self assert: (pieces anySatisfy: [:p | (p id = 'k' or: p id = 'L') and: [(p square) name = 'e1']])."
+    "self assert: (pieces anySatisfy: [:p | (p id = 'k' or: p id = 'L') and: [p position = 'e8']])."
     
     "Vérifier que les joueurs sont bien initialisés"
     self assert: game currentPlayer equals: game whitePlayer .
