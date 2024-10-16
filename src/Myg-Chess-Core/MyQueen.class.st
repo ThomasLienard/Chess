@@ -5,10 +5,22 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
-{ #category : 'rendering' }
-MyQueen >> renderPieceOn: aSquare [
+{ #category : 'constants' }
+MyQueen class >> black [
 
-	^ aSquare renderQueen: self
+	^ self new
+		  color: Color black;
+		  image: './pharo-local/iceberg/ThomasLienard/Chess/src/Myg-Chess-Style/queenB3.png';
+		  yourself
+]
+
+{ #category : 'constants' }
+MyQueen class >> white [
+
+	^ self new
+		  color: Color white;
+		  image: './pharo-local/iceberg/ThomasLienard/Chess/src/Myg-Chess-Style/queenW3.png';
+		  yourself
 ]
 
 { #category : 'rendering' }

@@ -3,7 +3,8 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'color',
-		'square'
+		'square',
+		'image'
 	],
 	#category : 'Myg-Chess-Core',
 	#package : 'Myg-Chess-Core'
@@ -123,6 +124,18 @@ MyPiece >> downRightDiagonalLegal: aBoolean [
 MyPiece >> id [
 
 	^ 'Q'
+]
+
+{ #category : 'accessing' }
+MyPiece >> image [
+
+	^image
+]
+
+{ #category : 'accessing' }
+MyPiece >> image: anImage [
+
+	image := Form fromFileNamed: anImage.
 ]
 
 { #category : 'testing' }

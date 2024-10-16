@@ -5,16 +5,28 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
+{ #category : 'constants' }
+MyPawn class >> black [
+
+	^ self new
+		  color: Color black;
+		  image: './pharo-local/iceberg/ThomasLienard/Chess/src/Myg-Chess-Style/pawnB3.png';
+		  yourself
+]
+
+{ #category : 'constants' }
+MyPawn class >> white [
+
+	^ self new
+		  color: Color white;
+		  image: './pharo-local/iceberg/ThomasLienard/Chess/src/Myg-Chess-Style/pawnW3.png';
+		  yourself
+]
+
 { #category : 'accessing' }
 MyPawn >> id [
 
 	^ 'P'
-]
-
-{ #category : 'rendering' }
-MyPawn >> renderPieceOn: aSquare [ 
-	
-	^ aSquare renderPawn: self
 ]
 
 { #category : 'rendering' }

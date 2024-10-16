@@ -5,16 +5,28 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
+{ #category : 'constants' }
+MyKnight class >> black [
+
+	^ self new
+		  color: Color black;
+		  image: './pharo-local/iceberg/ThomasLienard/Chess/src/Myg-Chess-Style/knightB3.png';
+		  yourself
+]
+
+{ #category : 'constants' }
+MyKnight class >> white [
+
+	^ self new
+		  color: Color white;
+		  image: './pharo-local/iceberg/ThomasLienard/Chess/src/Myg-Chess-Style/knightW3.png';
+		  yourself
+]
+
 { #category : 'accessing' }
 MyKnight >> id [
 	
 	^ 'N'
-]
-
-{ #category : 'rendering' }
-MyKnight >> renderPieceOn: aSquare [
-
-	^ aSquare renderKnight: self
 ]
 
 { #category : 'rendering' }

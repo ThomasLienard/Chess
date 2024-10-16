@@ -72,28 +72,10 @@ MyChessGame >> currentPlayer [
 MyChessGame >> initialize [
 
 	super initialize.
-	self initializeFonts.
 
 	moves := OrderedCollection new.
 	whitePlayer := MyPlayer new white game: self.
 	blackPlayer := MyPlayer new black game: self
-]
-
-{ #category : 'initialization' }
-MyChessGame >> initializeFonts [
-
-	"We use fonts to render the characters, and they should be loaded (and downloaded if not there yet)"
-	| library |
-	library := AeFTLibrary newInitialized.
-	MyOpenChessDownloadedFont new
-		downloadDirectory: AeFilesystemResources downloadedFontsDirectory;
-		ensureDownloaded;
-		firstFaceUsing: library.
-
-
-	AeFontManager resetGlobalInstance.
-	AeFontManager globalInstance scanDirectory:
-		AeFilesystemResources fontsDirectory
 ]
 
 { #category : 'initialization' }

@@ -5,6 +5,24 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
+{ #category : 'constants' }
+MyKing class >> black [
+
+	^ self new
+		  color: Color black;
+		  image: './pharo-local/iceberg/ThomasLienard/Chess/src/Myg-Chess-Style/kingB3.png';
+		  yourself
+]
+
+{ #category : 'constants' }
+MyKing class >> white [
+
+	^ self new
+		  color: Color white;
+		  image: './pharo-local/iceberg/ThomasLienard/Chess/src/Myg-Chess-Style/kingW3.png';
+		  yourself
+]
+
 { #category : 'as yet unclassified' }
 MyKing >> attackingSquares [
 
@@ -67,12 +85,6 @@ MyKing >> opponentPieces [
 
 	^ self board pieces select: [ :e |
 		  e notNil and: [ e color = color negated ] ]
-]
-
-{ #category : 'rendering' }
-MyKing >> renderPieceOn: aSquare [
-
-	^ aSquare renderKing: self
 ]
 
 { #category : 'rendering' }
