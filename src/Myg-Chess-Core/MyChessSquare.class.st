@@ -112,14 +112,6 @@ MyChessSquare >> file [
 	^ name second
 ]
 
-{ #category : 'accessing' }
-MyChessSquare >> foreground [
-			
-	^ color isBlack
-		ifTrue: [ board blackColor ]
-		ifFalse: [ board whiteColor ]
-]
-
 { #category : 'testing' }
 MyChessSquare >> hasPiece [
 	

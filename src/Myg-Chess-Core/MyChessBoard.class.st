@@ -6,8 +6,6 @@ Class {
 		'grid',
 		'selected',
 		'state',
-		'whiteColor',
-		'blackColor',
 		'game'
 	],
 	#category : 'Myg-Chess-Core',
@@ -55,18 +53,6 @@ MyChessBoard >> at: coordinate put: aPiece [
 	aPiece square: square
 ]
 
-{ #category : 'accessing' }
-MyChessBoard >> blackColor [
-
-	^ blackColor
-]
-
-{ #category : 'accessing' }
-MyChessBoard >> blackColor: anObject [
-
-	blackColor := anObject
-]
-
 { #category : 'event handling' }
 MyChessBoard >> click: aMyChessSquare [ 
 	
@@ -95,9 +81,6 @@ MyChessBoard >> highLightTargets: squares [
 MyChessBoard >> initialize [
 
 	super initialize.
-
-	self blackColor: Color blue.
-	self whiteColor: Color orange.
 
 	state := MyUnselectedState board: self.
 	grid := Dictionary new.
@@ -220,16 +203,4 @@ MyChessBoard >> unselectSelected [
 	
 	selected ifNil: [ ^ self ].
 	selected doUnselect
-]
-
-{ #category : 'accessing' }
-MyChessBoard >> whiteColor [
-
-	^ whiteColor
-]
-
-{ #category : 'accessing' }
-MyChessBoard >> whiteColor: anObject [
-
-	whiteColor := anObject
 ]
