@@ -149,7 +149,7 @@ MyChessSquare >> initialize [
 		addChild: frame;
 		addChild: piece.
 	self
-		background: Color white;
+		background: self color;
 		geometry: BlSquareGeometry new.
 
 	self addEventHandlerOn: BlClickEvent do: [ :e | self click ]
