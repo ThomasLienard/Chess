@@ -27,6 +27,17 @@ MyPawnTest >> setUp [
 { #category : 'tests' }
 MyPawnTest >> testBlackPawnBlocked [ 
     | squares |
+    board at: 'e6' put: blackPawn .
+    board at: 'e5' put: whitePawn . "Pion blanc bloque la case e6"
+
+    "Le pion noir ne devrait pas pouvoir avancer car il est bloqué"
+    squares := blackPawn targetSquares.
+    self assert: squares isEmpty.
+]
+
+{ #category : 'tests' }
+MyPawnTest >> testBlackPawnBlockedAtStart [ 
+    | squares |
     board at: 'e7' put: blackPawn .
     board at: 'e6' put: whitePawn . "Pion blanc bloque la case e6"
 
@@ -113,7 +124,18 @@ MyPawnTest >> testPawnCannotMoveBackwards [
 ]
 
 { #category : 'tests' }
-MyPawnTest >> testWhitePawnBlocked [ 
+MyPawnTest >> testWhitePawnBlocked [
+    | squares |
+    board at: 'e3' put: whitePawn .
+    board at: 'e4' put: blackPawn . "Pion noir bloque la case e3"
+
+    "Le pion blanc ne devrait pas pouvoir avancer car il est bloqué"
+    squares := whitePawn targetSquares.
+    self assert: squares isEmpty.
+]
+
+{ #category : 'tests' }
+MyPawnTest >> testWhitePawnBlockedAtStart [ 
     | squares |
     board at: 'e2' put: whitePawn .
     board at: 'e3' put: blackPawn . "Pion noir bloque la case e3"
