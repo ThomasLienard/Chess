@@ -57,20 +57,44 @@ MyPawn >> renderPieceOn: aSquare [
 { #category : 'rendering' }
 MyPawn >> targetSquaresLegal: aBoolean [
 
-	^ (self isWhite
-		   ifTrue: [
-			   isFirstMove
-				   ifFalse: [ { square up } ]
-				   ifTrue: [
-					   {
-						   square up.
-						   (square up hasPiece ifFalse: [ square up up ]) } ] ]
-		   ifFalse: [
-			   isFirstMove
-				   ifFalse: [ { square down } ]
-				   ifTrue: [
-					   {
-						   square down.
-						   (square down hasPiece ifFalse: [ square down down ]) } ] ])
-		  select: [ :s | s notNil and: [ s hasPiece not ] ]
+	| forwardSquare doubleForwardSquare attackLeft attackRight legalMoves |
+
+	forwardSquare := self isWhite
+		                 ifTrue: [ square up ]
+		                 ifFalse: [ square down ].
+	doubleForwardSquare := self isWhite
+		                       ifTrue: [ forwardSquare up ]
+		                       ifFalse: [ forwardSquare down ].
+	attackLeft := self isWhite
+		              ifTrue: [ square up left ]
+		              ifFalse: [ square down left ].
+	attackRight := self isWhite
+		               ifTrue: [ square up right ]
+		               ifFalse: [ square down right ].
+
+	legalMoves := OrderedCollection new.
+
+	
+	forwardSquare ifNotNil: [
+		forwardSquare hasPiece ifFalse: [
+			legalMoves add: forwardSquare.
+			
+			isFirstMove ifTrue: [
+				doubleForwardSquare ifNotNil: [
+					doubleForwardSquare hasPiece ifFalse: [
+						legalMoves add: doubleForwardSquare ] ] ] ] ].
+	
+	attackLeft ifNotNil: [
+		attackLeft hasPiece ifTrue: [
+			attackLeft
+				hasPiece 
+				ifTrue: [ legalMoves add: attackLeft ] ] ].
+		
+	attackRight ifNotNil: [
+		attackRight hasPiece ifTrue: [
+			attackRight
+				hasPiece
+				ifTrue: [ legalMoves add: attackRight ] ] ].
+
+	^ legalMoves
 ]
