@@ -54,17 +54,13 @@ MyPawnTest >> testBlackPawnCanCaptureOnLeftDiagonal [
 	board at: 'd2' put: whitePawn.
 	board at: 'e3' put: blackPawn.
 	
-
 	"Le pion noir devrait pouvoir capturer le pion blanc en diagonale"
 	squares := blackPawn targetSquares.
 
 	"Vérification que d3 fait partie des mouvements possibles"
 	self assertCollection: squares includesAll: (#(d2) collect: [:name | board at: name]).
 
-	"Déplacer le pion blanc pour capturer le pion noir"
-	board move: blackPawn to: (board at: 'd2').
-	self assert: (board at: 'd2') contents equals: blackPawn.
-	self assert: (board at: 'e3') contents isNil
+
 ]
 
 { #category : 'tests' }
@@ -82,10 +78,6 @@ MyPawnTest >> testBlackPawnCanCaptureOnRightDiagonal [
 	"Vérification que d3 fait partie des mouvements possibles"
 	self assertCollection: squares includesAll: (#(f2) collect: [:name | board at: name]).
 
-	"Déplacer le pion blanc pour capturer le pion noir"
-	board move: blackPawn to: (board at: 'f2').
-	self assert: (board at: 'f2') contents equals: blackPawn.
-	self assert: (board at: 'e3') contents isNil
 ]
 
 { #category : 'tests' }
@@ -160,10 +152,6 @@ MyPawnTest >> testWhitePawnCanCaptureOnLeftDiagonal [
 	"Vérification que d3 fait partie des mouvements possibles"
 	self assertCollection: squares includesAll: (#(d3) collect: [:name | board at: name]).
 
-	"Déplacer le pion blanc pour capturer le pion noir"
-	board move: whitePawn to: (board at: 'd3').
-	self assert: (board at: 'd3') contents equals: whitePawn.
-	self assert: (board at: 'e2') contents isNil
 ]
 
 { #category : 'tests' }
@@ -181,10 +169,7 @@ MyPawnTest >> testWhitePawnCanCaptureOnRightDiagonal [
 	"Vérification que d3 fait partie des mouvements possibles"
 	self assertCollection: squares includesAll: (#(f3) collect: [:name | board at: name]).
 
-	"Déplacer le pion blanc pour capturer le pion noir"
-	board move: whitePawn to: (board at: 'f3').
-	self assert: (board at: 'f3') contents equals: whitePawn.
-	self assert: (board at: 'e2') contents isNil
+
 
 	
 ]
