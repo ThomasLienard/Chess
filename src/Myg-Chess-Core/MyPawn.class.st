@@ -77,17 +77,20 @@ MyPawn >> targetSquaresLegal: aBoolean [
 		ifTrue: [ square up ]
 		ifFalse: [ square down ].
 		
-	doubleForwardSquare := self isWhite
-		ifTrue: [ forwardSquare up ]
-		ifFalse: [ forwardSquare down ].
-		
+	doubleForwardSquare := 
+		forwardSquare ifNotNil: [ 
+			self isWhite
+				ifTrue: [ forwardSquare up ]
+				ifFalse: [ forwardSquare down ]. 
+		].
+	
 	attackLeft := self isWhite
-		ifTrue: [ square up left ]
-		ifFalse: [ square down left ].
+		ifTrue: [ square upLeft ]
+		ifFalse: [ square downLeft ].
 		
 	attackRight := self isWhite
-		ifTrue: [ square up right ]
-		ifFalse: [ square down right ].
+		ifTrue: [ square upRight ]
+		ifFalse: [ square downRight ].
 
 	legalMoves := OrderedCollection new.
 
