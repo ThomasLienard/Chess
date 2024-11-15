@@ -109,6 +109,19 @@ MyChessSquare >> down [
 	^ self + (0 @ -1)
 ]
 
+{ #category : 'instance creation' }
+MyChessSquare >> downLeft [ 
+
+	^ self + (-1@ -1)
+	
+]
+
+{ #category : 'instance creation' }
+MyChessSquare >> downRight [ 
+
+	^ self + (1@ -1)
+]
+
 { #category : 'asd' }
 MyChessSquare >> emptyContents [
 	
@@ -309,4 +322,16 @@ MyChessSquare >> unselect [
 MyChessSquare >> up [
 	
 	^ self + (0@1)
+]
+
+{ #category : 'instance creation' }
+MyChessSquare >> upLeft [
+
+	^ self + (-1@1)
+]
+
+{ #category : 'instance creation' }
+MyChessSquare >> upRight [
+
+	^ self + (1@1)
 ]
