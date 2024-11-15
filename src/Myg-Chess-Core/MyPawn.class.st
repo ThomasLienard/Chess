@@ -44,8 +44,16 @@ MyPawn >> isFirstMove: aBoolean [
 { #category : 'path commands' }
 MyPawn >> moveTo: aSquare [
 
-	super moveTo: aSquare .
-	self isFirstMove: false
+	((self targetSquaresLegal: true) includes: aSquare)
+    ifTrue: [ 
+        super moveTo: aSquare.
+        self isFirstMove: false.
+    ]
+    ifFalse: [ 
+        self
+    ]
+
+	
 ]
 
 { #category : 'rendering' }
