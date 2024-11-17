@@ -10,7 +10,6 @@ MyKnight class >> black [
 
 	^ self new
 		  color: Color black;
-		  image: './pharo-local/iceberg/ThomasLienard/Chess/src/Myg-Chess-Style/knightB3.png';
 		  yourself
 ]
 
@@ -19,8 +18,13 @@ MyKnight class >> white [
 
 	^ self new
 		  color: Color white;
-		  image: './pharo-local/iceberg/ThomasLienard/Chess/src/Myg-Chess-Style/knightW3.png';
 		  yourself
+]
+
+{ #category : 'rendering' }
+MyKnight >> acceptVisitor: aVisitor [
+	
+	^ aVisitor renderKnight: self.
 ]
 
 { #category : 'accessing' }

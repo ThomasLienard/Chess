@@ -3,8 +3,7 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'color',
-		'square',
-		'image'
+		'square'
 	],
 	#category : 'Myg-Chess-Core',
 	#package : 'Myg-Chess-Core'
@@ -24,6 +23,12 @@ MyPiece class >> white [
 	^ self new
 		  color: Color white;
 		  yourself
+]
+
+{ #category : 'rendering' }
+MyPiece >> acceptVisitor: aVisitor [
+
+	^ nil.
 ]
 
 { #category : 'as yet unclassified' }
@@ -124,18 +129,6 @@ MyPiece >> downRightDiagonalLegal: aBoolean [
 MyPiece >> id [
 
 	^ 'Q'
-]
-
-{ #category : 'accessing' }
-MyPiece >> image [
-
-	^image
-]
-
-{ #category : 'accessing' }
-MyPiece >> image: anImage [
-
-	image := Form fromFileNamed: anImage.
 ]
 
 { #category : 'testing' }

@@ -10,7 +10,6 @@ MyRook class >> black [
 
 	^ self new
 		  color: Color black;
-		  image: './pharo-local/iceberg/ThomasLienard/Chess/src/Myg-Chess-Style/rookB3.png';
 		  yourself
 ]
 
@@ -19,8 +18,13 @@ MyRook class >> white [
 
 	^ self new
 		  color: Color white;
-		  image: './pharo-local/iceberg/ThomasLienard/Chess/src/Myg-Chess-Style/rookW3.png';
 		  yourself
+]
+
+{ #category : 'rendering' }
+MyRook >> acceptVisitor: aVisitor [
+	
+	^ aVisitor renderRook: self.
 ]
 
 { #category : 'accessing' }

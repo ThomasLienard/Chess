@@ -10,7 +10,6 @@ MyKing class >> black [
 
 	^ self new
 		  color: Color black;
-		  image: './pharo-local/iceberg/ThomasLienard/Chess/src/Myg-Chess-Style/kingB3.png';
 		  yourself
 ]
 
@@ -19,8 +18,13 @@ MyKing class >> white [
 
 	^ self new
 		  color: Color white;
-		  image: './pharo-local/iceberg/ThomasLienard/Chess/src/Myg-Chess-Style/kingW3.png';
 		  yourself
+]
+
+{ #category : 'rendering' }
+MyKing >> acceptVisitor: aVisitor [
+	
+	^ aVisitor renderKing: self.
 ]
 
 { #category : 'as yet unclassified' }

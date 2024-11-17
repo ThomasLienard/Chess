@@ -9,7 +9,8 @@ Class {
 		'contents',
 		'board',
 		'target',
-		'frame'
+		'frame',
+		'visitor'
 	],
 	#category : 'Myg-Chess-Core',
 	#package : 'Myg-Chess-Core'
@@ -90,7 +91,10 @@ MyChessSquare >> contents [
 MyChessSquare >> contents: aPiece [
 
 	aPiece ifNil: 	  [ frame background: (BlBackground transparent) ]
-			 ifNotNil: [ frame background: aPiece image ].
+			 ifNotNil: [ 
+				"frame background: aPiece image" 
+				frame background: (visitor render: aPiece)
+				].
 	contents := aPiece.
 ]
 
@@ -128,6 +132,7 @@ MyChessSquare >> highlightTarget [
 MyChessSquare >> initialize [
 
 	super initialize.
+	visitor := MyRenderer new.
 	frame := ToElement new.
 	target := BlElement new
 		  geometry: BlCircleGeometry new;
