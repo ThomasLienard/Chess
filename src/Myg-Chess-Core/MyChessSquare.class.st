@@ -217,3 +217,9 @@ MyChessSquare >> up [
 	
 	^ self + (0@1)
 ]
+
+{ #category : 'accessing' }
+MyChessSquare >> visitor: aVisitor [ 
+	
+	visitor := aVisitor
+]

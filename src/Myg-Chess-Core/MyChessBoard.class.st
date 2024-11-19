@@ -192,6 +192,12 @@ MyChessBoard >> selected: aMyChessSquare [
 	selected := aMyChessSquare
 ]
 
+{ #category : 'accessing' }
+MyChessBoard >> squares [
+	
+	^ children 
+]
+
 { #category : 'highlighting' }
 MyChessBoard >> unhighLightTargets: squares [
 
