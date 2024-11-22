@@ -5,7 +5,9 @@ Class {
 	#name : 'MyPawn',
 	#superclass : 'MyPiece',
 	#instVars : [
-		'isFirstMove'
+		'isFirstMove',
+		'canUseEnPassant',
+		'lastMove'
 	],
 	#category : 'Myg-Chess-Core',
 	#package : 'Myg-Chess-Core'
@@ -21,6 +23,26 @@ MyPawn class >> black [
 MyPawn class >> white [ 
 
 	^ super white isFirstMove: true
+]
+
+{ #category : 'accessing' }
+MyPawn >> canUseEnPassant [
+
+	^ self canUseEnPassant
+]
+
+{ #category : 'accessing' }
+MyPawn >> canUseEnPassant: aBoolean [
+
+	canUseEnPassant := aBoolean 
+]
+
+{ #category : 'checking' }
+MyPawn >> checkCanUseEnPassant [
+
+	self isWhite 
+		ifTrue: [ self canUseEnPassant: self square name asInteger = 5 ] 
+		ifFalse: [ self canUseEnPassant: self square name asInteger = 4 ]
 ]
 
 { #category : 'accessing' }
@@ -45,6 +67,18 @@ MyPawn >> isFirstMove [
 MyPawn >> isFirstMove: aBoolean [
 
 	isFirstMove := aBoolean 
+]
+
+{ #category : 'accessing' }
+MyPawn >> lastMove [
+
+	^ lastMove 
+]
+
+{ #category : 'accessing' }
+MyPawn >> lastMove: aMove [
+
+	^ lastMove := aMove 
 ]
 
 { #category : 'path commands' }
