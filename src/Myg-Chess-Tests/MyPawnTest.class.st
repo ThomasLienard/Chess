@@ -103,6 +103,21 @@ MyPawnTest >> testBlackPawnMoves [
 ]
 
 { #category : 'tests' }
+MyPawnTest >> testCheckCanUseEnPassantAfterMove [
+	
+	| squares |
+	board := MyChessBoard empty.
+	board at: 'c4' put: whitePawn.
+	
+	whitePawn moveTo: 'c5'.
+	squares := whitePawn targetSquares.
+
+	self assertCollection: squares includesAll: (#(c5) collect: [:name | board at: name]).
+	
+	self assert: whitePawn canUseEnPassant
+]
+
+{ #category : 'tests' }
 MyPawnTest >> testPawnCannotMoveBackwards [ 
     
         board at: 'e4' put: whitePawn.

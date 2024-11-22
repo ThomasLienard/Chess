@@ -16,13 +16,13 @@ Class {
 { #category : 'constants' }
 MyPawn class >> black [ 
 
-	^ super black isFirstMove: true
+	^ super black isFirstMove: true; canUseEnPassant: false 
 ]
 
 { #category : 'constants' }
 MyPawn class >> white [ 
 
-	^ super white isFirstMove: true
+	^ super white isFirstMove: true; canUseEnPassant: false 
 ]
 
 { #category : 'accessing' }
@@ -41,8 +41,8 @@ MyPawn >> canUseEnPassant: aBoolean [
 MyPawn >> checkCanUseEnPassant [
 
 	self isWhite 
-		ifTrue: [ self canUseEnPassant: self square name asInteger = 5 ] 
-		ifFalse: [ self canUseEnPassant: self square name asInteger = 4 ]
+		ifTrue: [ self canUseEnPassant: (self square name asInteger = 5) ] 
+		ifFalse: [ self canUseEnPassant: (self square name asInteger = 4) ]
 ]
 
 { #category : 'accessing' }
@@ -88,6 +88,7 @@ MyPawn >> moveTo: aSquare [
     ifTrue: [ 
         super moveTo: aSquare.
         self isFirstMove: false.
+		  self checkCanUseEnPassant.
     ]
     ifFalse: [ 
         self
