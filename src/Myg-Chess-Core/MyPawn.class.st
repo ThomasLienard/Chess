@@ -28,7 +28,7 @@ MyPawn class >> white [
 { #category : 'accessing' }
 MyPawn >> canUseEnPassant [
 
-	^ self canUseEnPassant
+	^ canUseEnPassant
 ]
 
 { #category : 'accessing' }
@@ -41,8 +41,8 @@ MyPawn >> canUseEnPassant: aBoolean [
 MyPawn >> checkCanUseEnPassant [
 
 	self isWhite 
-		ifTrue: [ self canUseEnPassant: (self square name asInteger = 5) ] 
-		ifFalse: [ self canUseEnPassant: (self square name asInteger = 4) ]
+		ifTrue: [ self canUseEnPassant: ((self square name) asInteger = 5) ] 
+		ifFalse: [ self canUseEnPassant: ((self square name) asInteger = 4) ]
 ]
 
 { #category : 'accessing' }
@@ -78,7 +78,7 @@ MyPawn >> lastMove [
 { #category : 'accessing' }
 MyPawn >> lastMove: aMove [
 
-	^ lastMove := aMove 
+	lastMove := aMove 
 ]
 
 { #category : 'path commands' }
@@ -106,7 +106,7 @@ MyPawn >> renderPieceOn: aSquare [
 { #category : 'rendering' }
 MyPawn >> targetSquaresLegal: aBoolean [
 
-	| forwardSquare doubleForwardSquare attackLeft attackRight legalMoves |
+	| forwardSquare doubleForwardSquare attackLeft attackRight enPassant legalMoves |
 
 	forwardSquare := self isWhite
 		ifTrue: [ square up ]
@@ -126,6 +126,8 @@ MyPawn >> targetSquaresLegal: aBoolean [
 	attackRight := self isWhite
 		ifTrue: [ square upRight ]
 		ifFalse: [ square downRight ].
+		
+	enPassant := attackLeft.
 
 	legalMoves := OrderedCollection new.
 
@@ -149,6 +151,10 @@ MyPawn >> targetSquaresLegal: aBoolean [
 		attackRight hasPiece ifTrue: [
 			(self isEnemyPiece: attackRight contents) ifTrue: [
 				legalMoves add: attackRight ] ] ].
+	
+	enPassant ifNotNil: [
+			(self canUseEnPassant ) ifTrue: [
+				legalMoves add: enPassant ] ].
 
 	^ legalMoves
 
