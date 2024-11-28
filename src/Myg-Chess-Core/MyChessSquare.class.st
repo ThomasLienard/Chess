@@ -92,7 +92,6 @@ MyChessSquare >> contents: aPiece [
 
 	aPiece ifNil: 	  [ frame background: (BlBackground transparent) ]
 			 ifNotNil: [ 
-				"frame background: aPiece image" 
 				frame background: (visitor render: aPiece)
 				].
 	contents := aPiece.
