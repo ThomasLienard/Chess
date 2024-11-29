@@ -5,22 +5,6 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
-{ #category : 'constants' }
-MyPawn class >> black [
-
-	^ self new
-		  color: Color black;
-		  yourself
-]
-
-{ #category : 'constants' }
-MyPawn class >> white [
-
-	^ self new
-		  color: Color white;
-		  yourself
-]
-
 { #category : 'rendering' }
 MyPawn >> acceptVisitor: aVisitor [
 	

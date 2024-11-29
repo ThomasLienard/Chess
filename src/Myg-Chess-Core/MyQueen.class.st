@@ -5,22 +5,6 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
-{ #category : 'constants' }
-MyQueen class >> black [
-
-	^ self new
-		  color: Color black;
-		  yourself
-]
-
-{ #category : 'constants' }
-MyQueen class >> white [
-
-	^ self new
-		  color: Color white;
-		  yourself
-]
-
 { #category : 'rendering' }
 MyQueen >> acceptVisitor: aVisitor [
 	

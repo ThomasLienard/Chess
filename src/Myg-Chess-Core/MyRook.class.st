@@ -5,22 +5,6 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
-{ #category : 'constants' }
-MyRook class >> black [
-
-	^ self new
-		  color: Color black;
-		  yourself
-]
-
-{ #category : 'constants' }
-MyRook class >> white [
-
-	^ self new
-		  color: Color white;
-		  yourself
-]
-
 { #category : 'rendering' }
 MyRook >> acceptVisitor: aVisitor [
 	

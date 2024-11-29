@@ -5,22 +5,6 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
-{ #category : 'constants' }
-MyBishop class >> black [
-
-	^ self new
-		  color: Color black;
-		  yourself
-]
-
-{ #category : 'constants' }
-MyBishop class >> white [
-
-	^ self new
-		  color: Color white;
-		  yourself
-]
-
 { #category : 'rendering' }
 MyBishop >> acceptVisitor: aVisitor [
 	
