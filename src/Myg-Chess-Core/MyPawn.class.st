@@ -5,9 +5,7 @@ Class {
 	#name : 'MyPawn',
 	#superclass : 'MyPiece',
 	#instVars : [
-		'isFirstMove',
-		'canUseEnPassant',
-		'lastMove'
+		'isFirstMove'
 	],
 	#category : 'Myg-Chess-Core',
 	#package : 'Myg-Chess-Core'
@@ -16,33 +14,31 @@ Class {
 { #category : 'constants' }
 MyPawn class >> black [ 
 
-	^ super black isFirstMove: true; canUseEnPassant: false 
+	^ super black isFirstMove: true
 ]
 
 { #category : 'constants' }
 MyPawn class >> white [ 
 
-	^ super white isFirstMove: true; canUseEnPassant: false 
+	^ super white isFirstMove: true
 ]
 
-{ #category : 'accessing' }
-MyPawn >> canUseEnPassant [
+{ #category : 'path commands' }
+MyPawn >> enPassantTargetSquare [ 
+    | enPassantSquare lastMovedPiece lastMoveTo lastMoveFrom|
+	 lastMovedPiece := self board lastMovedPiece.
+	 lastMoveTo := self board lastMoveTo.
+	 lastMoveFrom := self board lastMoveFrom.
+    self isOnFifthRank ifFalse: [ ^ nil ].
 
-	^ canUseEnPassant
-]
+    (lastMovedPiece class = MyPawn and: [
+        (lastMoveFrom name asInteger = (lastMovedPiece isWhite ifTrue: [2] ifFalse: [7])) and: [
+        (lastMoveTo name asInteger = (lastMovedPiece isWhite ifTrue: [4] ifFalse: [5])) and: [ 
+			(self square left contents isNotNil and: [self square left contents isEnemyPiece: self])
+			]]]) 
+        ifTrue: [ enPassantSquare := (self isWhite ifTrue: [square upLeft] ifFalse: [square downRight ]) ].
 
-{ #category : 'accessing' }
-MyPawn >> canUseEnPassant: aBoolean [
-
-	canUseEnPassant := aBoolean 
-]
-
-{ #category : 'checking' }
-MyPawn >> checkCanUseEnPassant [
-
-	self isWhite 
-		ifTrue: [ self canUseEnPassant: ((self square name) asInteger = 5) ] 
-		ifFalse: [ self canUseEnPassant: ((self square name) asInteger = 4) ]
+    ^ enPassantSquare
 ]
 
 { #category : 'accessing' }
@@ -69,16 +65,12 @@ MyPawn >> isFirstMove: aBoolean [
 	isFirstMove := aBoolean 
 ]
 
-{ #category : 'accessing' }
-MyPawn >> lastMove [
+{ #category : 'checking' }
+MyPawn >> isOnFifthRank [
 
-	^ lastMove 
-]
-
-{ #category : 'accessing' }
-MyPawn >> lastMove: aMove [
-
-	lastMove := aMove 
+	^ self isWhite 
+		ifTrue: [ ((self square name) asInteger = 5) ] 
+		ifFalse: [ ((self square name) asInteger = 4) ]
 ]
 
 { #category : 'path commands' }
@@ -86,9 +78,11 @@ MyPawn >> moveTo: aSquare [
 
 	((self targetSquaresLegal: true) includes: aSquare)
     ifTrue: [ 
-        super moveTo: aSquare.
-        self isFirstMove: false.
-		  self checkCanUseEnPassant.
+		self board lastMoveFrom: self square .
+		self board lastMoveTo: aSquare .
+		super moveTo: aSquare.
+		self isFirstMove: false.
+		
     ]
     ifFalse: [ 
         self
@@ -126,8 +120,6 @@ MyPawn >> targetSquaresLegal: aBoolean [
 	attackRight := self isWhite
 		ifTrue: [ square upRight ]
 		ifFalse: [ square downRight ].
-		
-	enPassant := attackLeft.
 
 	legalMoves := OrderedCollection new.
 
@@ -152,9 +144,9 @@ MyPawn >> targetSquaresLegal: aBoolean [
 			(self isEnemyPiece: attackRight contents) ifTrue: [
 				legalMoves add: attackRight ] ] ].
 	
-	enPassant ifNotNil: [
-			(self canUseEnPassant ) ifTrue: [
-				legalMoves add: enPassant ] ].
+	(enPassant := self enPassantTargetSquare) ifNotNil: [
+		
+			legalMoves add: enPassant ].
 
 	^ legalMoves
 
