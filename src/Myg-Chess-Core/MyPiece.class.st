@@ -25,6 +25,12 @@ MyPiece class >> white [
 		  yourself
 ]
 
+{ #category : 'rendering' }
+MyPiece >> acceptVisitor: aVisitor [
+
+	^ nil.
+]
+
 { #category : 'as yet unclassified' }
 MyPiece >> attackingSquares [
 

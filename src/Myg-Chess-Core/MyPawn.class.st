@@ -5,16 +5,16 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
+{ #category : 'rendering' }
+MyPawn >> acceptVisitor: aVisitor [
+	
+	^ aVisitor renderPawn: self.
+]
+
 { #category : 'accessing' }
 MyPawn >> id [
 
 	^ 'P'
-]
-
-{ #category : 'rendering' }
-MyPawn >> renderPieceOn: aSquare [ 
-	
-	^ aSquare renderPawn: self
 ]
 
 { #category : 'rendering' }

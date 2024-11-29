@@ -8,7 +8,9 @@ Class {
 		'piece',
 		'contents',
 		'board',
-		'target'
+		'target',
+		'frame',
+		'visitor'
 	],
 	#category : 'Myg-Chess-Core',
 	#package : 'Myg-Chess-Core'
@@ -88,19 +90,11 @@ MyChessSquare >> contents [
 { #category : 'accessing' }
 MyChessSquare >> contents: aPiece [
 
-	| text |
+	aPiece ifNil: 	  [ frame background: (BlBackground transparent) ]
+			 ifNotNil: [ 
+				frame background: (visitor render: aPiece)
+				].
 	contents := aPiece.
-
-	text := contents
-		        ifNil: [
-			        color isBlack
-				        ifFalse: [ 'z' ]
-				        ifTrue: [ 'x' ] ]
-		        ifNotNil: [ contents renderPieceOn: self ].
-	piece text: (text asRopedText
-			 fontSize: 48;
-			 foreground: self foreground;
-			 fontName: MyOpenChessDownloadedFont new familyName)
 ]
 
 { #category : 'api - configuration' }
@@ -121,14 +115,6 @@ MyChessSquare >> file [
 	^ name second
 ]
 
-{ #category : 'accessing' }
-MyChessSquare >> foreground [
-			
-	^ color isBlack
-		ifTrue: [ board blackColor ]
-		ifFalse: [ board whiteColor ]
-]
-
 { #category : 'testing' }
 MyChessSquare >> hasPiece [
 	
@@ -145,6 +131,8 @@ MyChessSquare >> highlightTarget [
 MyChessSquare >> initialize [
 
 	super initialize.
+	visitor := MyRenderer new.
+	frame := ToElement new.
 	target := BlElement new
 		  geometry: BlCircleGeometry new;
 		  background: (Color gray alpha: 0.3).
@@ -162,9 +150,10 @@ MyChessSquare >> initialize [
 
 	self
 		addChild: label;
+		addChild: frame;
 		addChild: piece.
 	self
-		background: Color white;
+		background: self color;
 		geometry: BlSquareGeometry new.
 
 	self addEventHandlerOn: BlClickEvent do: [ :e | self click ]
@@ -198,89 +187,6 @@ MyChessSquare >> printOn: aStream [
 		print: name
 ]
 
-{ #category : 'rendering' }
-MyChessSquare >> renderBishop: aPiece [
-
-	^ aPiece isWhite
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'B' ]
-				  ifTrue: [ 'b' ] ]
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'V' ]
-				  ifTrue: [ 'v' ] ]
-]
-
-{ #category : 'rendering' }
-MyChessSquare >> renderKing: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'L' ]
-				  ifTrue: [ 'l' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'K' ]
-				  ifTrue: [ 'k' ] ]
-]
-
-{ #category : 'rendering' }
-MyChessSquare >> renderKnight: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [ color isBlack
-				  ifFalse: [ 'M' ]
-				  ifTrue: [ 'm' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'N' ]
-				  ifTrue: [ 'n' ] ]
-]
-
-{ #category : 'rendering' }
-MyChessSquare >> renderPawn: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'O' ]
-				  ifTrue: [ 'o' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'P' ]
-				  ifTrue: [ 'p' ] ]
-]
-
-{ #category : 'rendering' }
-MyChessSquare >> renderQueen: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'W' ]
-				  ifTrue: [ 'w' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'Q' ]
-				  ifTrue: [ 'q' ] ]
-]
-
-{ #category : 'rendering' }
-MyChessSquare >> renderRook: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'T' ]
-				  ifTrue: [ 't' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'R' ]
-				  ifTrue: [ 'r' ] ]
-]
-
 { #category : 'accessing' }
 MyChessSquare >> right [
 	
@@ -309,4 +215,10 @@ MyChessSquare >> unselect [
 MyChessSquare >> up [
 	
 	^ self + (0@1)
+]
+
+{ #category : 'accessing' }
+MyChessSquare >> visitor: aVisitor [ 
+	
+	visitor := aVisitor
 ]

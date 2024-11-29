@@ -5,15 +5,15 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
+{ #category : 'rendering' }
+MyRook >> acceptVisitor: aVisitor [
+	
+	^ aVisitor renderRook: self.
+]
+
 { #category : 'accessing' }
 MyRook >> id [
 	^ 'R'
-]
-
-{ #category : 'rendering' }
-MyRook >> renderPieceOn: aSquare [
-
-	^ aSquare renderRook: self
 ]
 
 { #category : 'rendering' }

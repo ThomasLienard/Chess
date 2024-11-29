@@ -5,16 +5,16 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
+{ #category : 'rendering' }
+MyBishop >> acceptVisitor: aVisitor [
+	
+	^ aVisitor renderBishop: self.
+]
+
 { #category : 'accessing' }
 MyBishop >> id [
 	
 	^ 'B'
-]
-
-{ #category : 'rendering' }
-MyBishop >> renderPieceOn: aSquare [
-
-	^ aSquare renderBishop: self
 ]
 
 { #category : 'rendering' }
