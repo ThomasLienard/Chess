@@ -175,6 +175,42 @@ MyChessBoard >> initializeSquares [
 ]
 
 { #category : 'accessing' }
+MyChessBoard >> lastMoveFrom [
+
+	^ lastMoveFrom
+]
+
+{ #category : 'accessing' }
+MyChessBoard >> lastMoveFrom: aSquare [
+
+	lastMoveFrom := aSquare
+]
+
+{ #category : 'accessing' }
+MyChessBoard >> lastMoveTo [
+
+	^ lastMoveTo
+]
+
+{ #category : 'accessing' }
+MyChessBoard >> lastMoveTo: aSquare [
+
+	lastMoveTo := aSquare
+]
+
+{ #category : 'accessing' }
+MyChessBoard >> lastMovedPiece [ 
+
+	^ lastMovedPiece 
+]
+
+{ #category : 'accessing' }
+MyChessBoard >> lastMovedPiece: aPiece [
+	
+	lastMovedPiece := aPiece 
+]
+
+{ #category : 'accessing' }
 MyChessBoard >> pieces [
 	
 	^ children collect: [ :square | square contents ]
