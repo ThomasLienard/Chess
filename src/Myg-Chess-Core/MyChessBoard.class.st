@@ -6,7 +6,10 @@ Class {
 		'grid',
 		'selected',
 		'state',
-		'game'
+		'game',
+		'lastMovedPiece',
+		'lastMoveTo',
+		'lastMoveFrom'
 	],
 	#category : 'Myg-Chess-Core',
 	#package : 'Myg-Chess-Core'
