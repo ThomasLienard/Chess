@@ -204,7 +204,7 @@ MyChessBoard >> lastMoveTo: aSquare [
 { #category : 'accessing' }
 MyChessBoard >> lastMovedPiece [ 
 
-	^ lastMovedPiece 
+	^ lastMovedPiece
 ]
 
 { #category : 'accessing' }

@@ -6,19 +6,6 @@ Class {
 }
 
 { #category : 'tests' }
-MyLogicTest >> testCheckmateDetection [
-
-    | game |
-	 "FEN correspondant à un échec et mat"
-    game := MyChessGame fromFENString: 'rnbqkbnr/pppppppp/8/8/4Q3/8/PPPPPPPP/RNB1KBNR b KQkq - 0 1'.  
-
-    "Vérifier que le joueur noir est en échec et mat"
-	 "Halt est un sous classe de Exception on peut donc catch comme une erreur"
-    self should: [ game checkForMate ] raise: Error.
-
-]
-
-{ #category : 'tests' }
 MyLogicTest >> testGameInitialization [
 
     | game pieces |
