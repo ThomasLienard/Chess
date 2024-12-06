@@ -40,7 +40,7 @@ MyPiece >> attackingSquares [
 { #category : 'path commands' }
 MyPiece >> board [
 
-	^ self square board
+	^ square board
 ]
 
 { #category : 'rendering' }
@@ -174,8 +174,7 @@ MyPiece >> moveTo: aSquare [
 
 	square emptyContents.
 	square := aSquare.
-	aSquare contents: self.
-	self board lastMovedPiece: self
+	aSquare contents: self
 ]
 
 { #category : 'rendering' }
