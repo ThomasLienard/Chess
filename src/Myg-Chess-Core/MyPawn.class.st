@@ -11,6 +11,7 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
+
 { #category : 'constants' }
 MyPawn class >> black [ 
 
@@ -46,6 +47,12 @@ MyPawn >> enPassantTargetSquare [
                 ^ (self isWhite ifTrue: [ square upRight ] ifFalse: [ square downRight ]) ]) ].
 
     ^ nil
+
+{ #category : 'rendering' }
+MyPawn >> acceptVisitor: aVisitor [
+	
+	^ aVisitor renderPawn: self.
+
 ]
 
 { #category : 'accessing' }
@@ -99,12 +106,6 @@ MyPawn >> moveTo: aSquare [
    
 
 	
-]
-
-{ #category : 'rendering' }
-MyPawn >> renderPieceOn: aSquare [ 
-	
-	^ aSquare renderPawn: self
 ]
 
 { #category : 'rendering' }

@@ -49,6 +49,12 @@ MyChessGame class >> new [
 	self error: 'Please use one of the other constructors'
 ]
 
+{ #category : 'accessing' }
+MyChessGame >> blackPlayer [ 
+	
+	^ blackPlayer 
+]
+
 { #category : 'playing' }
 MyChessGame >> checkForMate [
 
@@ -56,11 +62,16 @@ MyChessGame >> checkForMate [
 	blackPlayer king isCheckMated ifTrue: [ self halt: 'White wins!' ].
 ]
 
+{ #category : 'accessing' }
+MyChessGame >> currentPlayer [ 
+	
+	^ currentPlayer 
+]
+
 { #category : 'initialization' }
 MyChessGame >> initialize [
 
 	super initialize.
-	self initializeFonts.
 
 	moves := OrderedCollection new.
 	whitePlayer := MyPlayer new white game: self.
@@ -68,26 +79,9 @@ MyChessGame >> initialize [
 ]
 
 { #category : 'initialization' }
-MyChessGame >> initializeFonts [
-
-	"We use fonts to render the characters, and they should be loaded (and downloaded if not there yet)"
-	| library |
-	library := AeFTLibrary newInitialized.
-	MyOpenChessDownloadedFont new
-		downloadDirectory: AeFilesystemResources downloadedFontsDirectory;
-		ensureDownloaded;
-		firstFaceUsing: library.
-
-
-	AeFontManager resetGlobalInstance.
-	AeFontManager globalInstance scanDirectory:
-		AeFilesystemResources fontsDirectory
-]
-
-{ #category : 'initialization' }
 MyChessGame >> initializeFromFENGame: aFENGame [
 
-	| button infoPane |
+	| button infoPane themeButton themeButton2 |
 	aFENGame sideToMove = 'White'
 		ifTrue: [ currentPlayer := whitePlayer ]
 		ifFalse: [ currentPlayer := blackPlayer ].
@@ -99,6 +93,13 @@ MyChessGame >> initializeFromFENGame: aFENGame [
 	button := ToButton new.
 	button labelText: 'Play!'.
 	button whenClickedDo: [ self play ].
+	
+	themeButton := ToButton new.
+	themeButton labelText: 'Theme 2'.
+	themeButton whenClickedDo: [ self toTheme2 ].
+	themeButton2 := ToButton new.
+	themeButton2 labelText: 'Theme 1'.
+	themeButton2 whenClickedDo: [ self toTheme1 ].
 	
 	infoPane := ToElement new.
 	infoPane constraintsDo: [ :c | 
@@ -116,6 +117,8 @@ MyChessGame >> initializeFromFENGame: aFENGame [
 	self addChild: infoPane.
 	infoPane addChild: movesLabel.
 	infoPane addChild: button.
+	infoPane addChild: themeButton.
+	infoPane addChild: themeButton2.
 
 	self layout: BlLinearLayout horizontal.
 	self constraintsDo: [ :aLayoutConstraints |
@@ -173,4 +176,40 @@ MyChessGame >> recordMovementOf: aPiece to: aSquare [
 	].
 	
 	movesLabel text: movesText
+]
+
+{ #category : 'accessing' }
+MyChessGame >> squares [
+
+	^ board squares
+]
+
+{ #category : 'render' }
+MyChessGame >> toTheme1 [ 
+	| renderer squares|
+	
+	renderer := MyRenderer new.
+	self squares do: [ :each | 
+		each visitor: renderer;
+		contents: (each contents)
+		]
+	
+]
+
+{ #category : 'render' }
+MyChessGame >> toTheme2 [ 
+	| renderer squares|
+	
+	renderer := MyRenderer2 new.
+	self squares do: [ :each | 
+		each visitor: renderer;
+		contents: (each contents)
+		]
+	
+]
+
+{ #category : 'accessing' }
+MyChessGame >> whitePlayer [ 
+	
+	^ whitePlayer 
 ]

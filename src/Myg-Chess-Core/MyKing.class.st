@@ -5,6 +5,12 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
+{ #category : 'rendering' }
+MyKing >> acceptVisitor: aVisitor [
+	
+	^ aVisitor renderKing: self.
+]
+
 { #category : 'as yet unclassified' }
 MyKing >> attackingSquares [
 
@@ -67,12 +73,6 @@ MyKing >> opponentPieces [
 
 	^ self board pieces select: [ :e |
 		  e notNil and: [ e color = color negated ] ]
-]
-
-{ #category : 'rendering' }
-MyKing >> renderPieceOn: aSquare [
-
-	^ aSquare renderKing: self
 ]
 
 { #category : 'rendering' }

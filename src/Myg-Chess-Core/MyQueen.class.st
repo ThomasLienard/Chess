@@ -6,9 +6,9 @@ Class {
 }
 
 { #category : 'rendering' }
-MyQueen >> renderPieceOn: aSquare [
-
-	^ aSquare renderQueen: self
+MyQueen >> acceptVisitor: aVisitor [
+	
+	^ aVisitor renderQueen: self.
 ]
 
 { #category : 'rendering' }

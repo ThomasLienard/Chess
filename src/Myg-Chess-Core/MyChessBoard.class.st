@@ -58,18 +58,6 @@ MyChessBoard >> at: coordinate put: aPiece [
 	aPiece square: square
 ]
 
-{ #category : 'accessing' }
-MyChessBoard >> blackColor [
-
-	^ blackColor
-]
-
-{ #category : 'accessing' }
-MyChessBoard >> blackColor: anObject [
-
-	blackColor := anObject
-]
-
 { #category : 'event handling' }
 MyChessBoard >> click: aMyChessSquare [ 
 	
@@ -99,9 +87,6 @@ MyChessBoard >> initialize [
 
 	super initialize.
 
-	self blackColor: Color blue.
-	self whiteColor: Color orange.
-
 	state := MyUnselectedState board: self.
 	grid := Dictionary new.
 
@@ -115,7 +100,7 @@ MyChessBoard >> initialize [
 		aLayoutConstraints horizontal fitContent.
 		aLayoutConstraints vertical fitContent ].
 
-	self initializeSquares
+	self initializePieces 
 ]
 
 { #category : 'initialization' }
@@ -137,31 +122,7 @@ MyChessBoard >> initializeFromFENBoard: aFENBoard [
 { #category : 'initialization' }
 MyChessBoard >> initializePieces [
 
-	| black |
-	black := false.
-	$a asciiValue to: $h asciiValue do: [ :column |
-		8 to: 1 by: -1 do: [ :file |
-			| squareNotation square |
-			squareNotation := column asCharacter asString , file asString.
-			square := black
-				          ifTrue: [
-					          black := false.
-					          MyChessSquare basicNew
-						          color: Color black;
-						          board: self;
-						          initialize;
-						          yourself ]
-				          ifFalse: [
-					          black := true.
-					          MyChessSquare basicNew
-						          color: Color white;
-						          board: self;
-						          initialize;
-						          yourself ].
-			square name: squareNotation.
-			grid at: squareNotation put: square.
-			self addChild: square ].
-		black := black not ].
+	self initializeSquares.
 
 	self at: 'a1' put: MyRook white.
 	self at: 'b1' put: MyKnight white.
@@ -204,7 +165,6 @@ MyChessBoard >> initializeSquares [
 						          color: Color black;
 						          board: self;
 						          initialize;
-						          contents: nil;
 						          yourself ]
 				          ifFalse: [
 					          black := true.
@@ -212,7 +172,6 @@ MyChessBoard >> initializeSquares [
 						          color: Color white;
 						          board: self;
 						          initialize;
-						          contents: nil;
 						          yourself ].
 			square name: squareNotation.
 			grid at: squareNotation put: square.
@@ -274,6 +233,12 @@ MyChessBoard >> selected: aMyChessSquare [
 	selected := aMyChessSquare
 ]
 
+{ #category : 'accessing' }
+MyChessBoard >> squares [
+	
+	^ children 
+]
+
 { #category : 'highlighting' }
 MyChessBoard >> unhighLightTargets: squares [
 
@@ -285,16 +250,4 @@ MyChessBoard >> unselectSelected [
 	
 	selected ifNil: [ ^ self ].
 	selected doUnselect
-]
-
-{ #category : 'accessing' }
-MyChessBoard >> whiteColor [
-
-	^ whiteColor
-]
-
-{ #category : 'accessing' }
-MyChessBoard >> whiteColor: anObject [
-
-	whiteColor := anObject
 ]
