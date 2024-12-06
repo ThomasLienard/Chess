@@ -83,17 +83,20 @@ MyPawn >> isOnFifthRank [
 { #category : 'path commands' }
 MyPawn >> moveTo: aSquare [
 
-	((self targetSquaresLegal: true) includes: aSquare)
-    ifTrue: [ 
-		self board lastMoveFrom: self square .
-		self board lastMoveTo: aSquare .
-		super moveTo: aSquare.
-		self isFirstMove: false.
+	| lastSquare wasEnPassant|
+
+	((self targetSquaresLegal: true) includes: aSquare) ifFalse: [ ^ self ].
+	
+	lastSquare := self square.
+	wasEnPassant := aSquare hasPiece not.
+	
+	super moveTo: aSquare.
+	(wasEnPassant ) ifTrue: [ aSquare down emptyContents ].
+	self board lastMoveFrom: lastSquare .
+	self board lastMoveTo: aSquare .
+	self isFirstMove: false.
 		
-    ]
-    ifFalse: [ 
-        self
-    ]
+   
 
 	
 ]
