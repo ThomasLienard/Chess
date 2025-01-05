@@ -24,13 +24,13 @@ MyWhitePawn >> enPassantTargetSquare [
     lastMovedPiece := self board lastMovedPiece.
     lastMoveTo := self board lastMoveTo.
     lastMoveFrom := self board lastMoveFrom.
-
+	
     self isOnFifthRank ifFalse: [ ^ nil ].
-
+	
     "Vérifie si le pion ennemi a fait un mouvement double."
-    (lastMovedPiece class = MyPawn and: [
-        (lastMoveFrom name asInteger = 2) and: [
-        (lastMoveTo name asInteger = 4)]])
+    (lastMovedPiece class = MyBlackPawn and: [
+        (lastMoveFrom name asInteger = 7) and: [
+        (lastMoveTo name asInteger = 5)]])
         ifTrue: [
             "Vérifie la présence d'un pion ennemi à gauche ou à droite"
             (self square left contents = lastMovedPiece ifTrue: [
@@ -53,6 +53,23 @@ MyWhitePawn >> isOnFifthRank [
 
 	^  ((self square name) asInteger = 5) 
 		
+]
+
+{ #category : 'path commands' }
+MyWhitePawn >> moveTo: aSquare [ 
+
+	| lastSquare wasEnPassant|
+
+	((self targetSquaresLegal: true) includes: aSquare) ifFalse: [ ^ self ].
+	
+	lastSquare := self square.
+	wasEnPassant := aSquare hasPiece not.
+	
+	super moveTo: aSquare.
+	(wasEnPassant ) ifTrue: [ aSquare down emptyContents ].
+	self board lastMoveFrom: lastSquare .
+	self board lastMoveTo: aSquare .
+	self isFirstMove: false.
 ]
 
 { #category : 'rendering' }

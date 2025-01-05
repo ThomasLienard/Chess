@@ -68,21 +68,7 @@ self subclassResponsibility
 { #category : 'path commands' }
 MyPawn >> moveTo: aSquare [
 
-	| lastSquare wasEnPassant|
-
-	((self targetSquaresLegal: true) includes: aSquare) ifFalse: [ ^ self ].
-	
-	lastSquare := self square.
-	wasEnPassant := aSquare hasPiece not.
-	
-	super moveTo: aSquare.
-	(wasEnPassant ) ifTrue: [ self isWhite 
-		ifTrue: [ aSquare down emptyContents ] 
-		ifFalse: [aSquare up emptyContents ]].
-	self board lastMoveFrom: lastSquare .
-	self board lastMoveTo: aSquare .
-	self isFirstMove: false.
-		
+	super moveTo: aSquare 
    
 
 	
