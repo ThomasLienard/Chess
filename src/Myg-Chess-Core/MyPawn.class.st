@@ -89,54 +89,5 @@ MyPawn >> moveTo: aSquare [
 { #category : 'rendering' }
 MyPawn >> targetSquaresLegal: aBoolean [
 
-	| forwardSquare doubleForwardSquare attackLeft attackRight enPassant legalMoves |
-
-	forwardSquare := self isWhite
-		ifTrue: [ square up ]
-		ifFalse: [ square down ].
-		
-	doubleForwardSquare := 
-		forwardSquare ifNotNil: [ 
-			self isWhite
-				ifTrue: [ forwardSquare up ]
-				ifFalse: [ forwardSquare down ]. 
-		].
-	
-	attackLeft := self isWhite
-		ifTrue: [ square upLeft ]
-		ifFalse: [ square downLeft ].
-		
-	attackRight := self isWhite
-		ifTrue: [ square upRight ]
-		ifFalse: [ square downRight ].
-
-	legalMoves := OrderedCollection new.
-
-	"Ajout des mouvements de base"
-	forwardSquare ifNotNil: [
-		forwardSquare hasPiece ifFalse: [
-			legalMoves add: forwardSquare.
-			
-			isFirstMove ifTrue: [
-				doubleForwardSquare ifNotNil: [
-					doubleForwardSquare hasPiece ifFalse: [
-						legalMoves add: doubleForwardSquare ] ] ] ] ].
-
-	"Ajout des attaques en diagonale, seulement si la pièce est ennemie"
-	attackLeft ifNotNil: [
-		attackLeft hasPiece ifTrue: [
-			(self isEnemyPiece: attackLeft contents) ifTrue: [
-				legalMoves add: attackLeft ] ] ].
-
-	attackRight ifNotNil: [
-		attackRight hasPiece ifTrue: [
-			(self isEnemyPiece: attackRight contents) ifTrue: [
-				legalMoves add: attackRight ] ] ].
-	
-	(enPassant := self enPassantTargetSquare) ifNotNil: [
-		
-			legalMoves add: enPassant ].
-
-	^ legalMoves
-
+	self subclassResponsibility
 ]
