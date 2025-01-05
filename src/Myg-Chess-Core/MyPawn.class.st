@@ -14,13 +14,13 @@ Class {
 { #category : 'constants' }
 MyPawn class >> black [ 
 
-	^ super black isFirstMove: true
+	^ MyBlackPawn black 
 ]
 
 { #category : 'constants' }
 MyPawn class >> white [ 
 
-	^ super white isFirstMove: true
+	^ MyWhitePawn white 
 ]
 
 { #category : 'rendering' }
@@ -32,26 +32,7 @@ MyPawn >> acceptVisitor: aVisitor [
 { #category : 'path commands' }
 MyPawn >> enPassantTargetSquare [ 
     
-	| lastMovedPiece lastMoveTo lastMoveFrom |
-    lastMovedPiece := self board lastMovedPiece.
-    lastMoveTo := self board lastMoveTo.
-    lastMoveFrom := self board lastMoveFrom.
-
-    self isOnFifthRank ifFalse: [ ^ nil ].
-
-    "Vérifie si le pion ennemi a fait un mouvement double."
-    (lastMovedPiece class = MyPawn and: [
-        (lastMoveFrom name asInteger = (lastMovedPiece isWhite ifTrue: [2] ifFalse: [7])) and: [
-        (lastMoveTo name asInteger = (lastMovedPiece isWhite ifTrue: [4] ifFalse: [5]))]])
-        ifTrue: [
-            "Vérifie la présence d'un pion ennemi à gauche ou à droite"
-            (self square left contents = lastMovedPiece ifTrue: [
-                ^ (self isWhite ifTrue: [ square upLeft ] ifFalse: [ square downLeft ]) ]).
-
-            (self square right contents = lastMovedPiece ifTrue: [
-                ^ (self isWhite ifTrue: [ square upRight ] ifFalse: [ square downRight ]) ]) ].
-
-    ^ nil
+self subclassResponsibility 
 ]
 
 { #category : 'accessing' }
@@ -62,8 +43,8 @@ MyPawn >> id [
 
 { #category : 'testing' }
 MyPawn >> isEnemyPiece: aPiece [
-	^ (aPiece isWhite not and: [ self isWhite ]) or: (aPiece isWhite and: [ self isWhite not ])
 
+	self subclassResponsibility 
 ]
 
 { #category : 'accessing' }
@@ -81,9 +62,7 @@ MyPawn >> isFirstMove: aBoolean [
 { #category : 'checking' }
 MyPawn >> isOnFifthRank [
 
-	^ self isWhite 
-		ifTrue: [ ((self square name) asInteger = 5) ] 
-		ifFalse: [ ((self square name) asInteger = 4) ]
+self subclassResponsibility 
 ]
 
 { #category : 'path commands' }
