@@ -97,7 +97,9 @@ MyPawn >> moveTo: aSquare [
 	wasEnPassant := aSquare hasPiece not.
 	
 	super moveTo: aSquare.
-	(wasEnPassant ) ifTrue: [ aSquare down emptyContents ].
+	(wasEnPassant ) ifTrue: [ self isWhite 
+		ifTrue: [ aSquare down emptyContents ] 
+		ifFalse: [aSquare up emptyContents ]].
 	self board lastMoveFrom: lastSquare .
 	self board lastMoveTo: aSquare .
 	self isFirstMove: false.
